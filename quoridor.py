@@ -155,7 +155,7 @@ class Quoridor:
                 nx.shortest_path(graphe, état['joueurs'][1]['pos'], 'B2')]
         self.déplacer_jeton(joueur, path[joueur-1][1])
         position = path[joueur-1][1]
-        return type_coup, position
+        return position
 
     def partie_terminée(self):
         """ Déterminer si la partie est terminée.
