@@ -10,3 +10,12 @@ class Quoridorx(Quoridor):
     def afficher(self):
         jeu = self.partie
         position = [1, 2]
+        screen = Screen()
+        setup(width=500, height=500)
+        j1 = Turtle()
+        j2 = Turtle()
+        pencolor = 
+        
+def cardre(screen):
+    scr = screen
+    tortle = Turtle()
