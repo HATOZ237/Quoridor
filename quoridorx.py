@@ -6,6 +6,7 @@ class Quoridorx(Quoridor):
     
     def __init__(self, joueurs, murs=None):
         super().__init__(joueurs, murs=murs)
+        afficher()
         
     def afficher(self):
         jeu = self.partie
