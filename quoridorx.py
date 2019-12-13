@@ -10,13 +10,13 @@ class Quoridorx(Quoridor):
         j2 = Turtle()
         self.screen = Screen()
         self.afficher()
-        mainloop()
 
     def afficher(self):
         jeu = self.partie
         position = [1, 2]
         setup(width=500, height=500)
         cardre(self.screen)
+        mainloop()
 
 
 def cardre(screen):
@@ -24,11 +24,13 @@ def cardre(screen):
     tortle = Turtle()
     penup()
     pensize(5)
+    goto(-225, -225)
     pendown()
-    goto(0, 450)
-    goto(450, 450)
-    goto(450, 0)
-    goto(0, 0)
+    goto(-225, 225)
+    goto(225, 225)
+    goto(225, -225)
+    goto(-225, -225)
+    tortle.color("red")
     hideturtle()
 
 état = {
