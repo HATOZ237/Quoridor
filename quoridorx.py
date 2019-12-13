@@ -9,14 +9,16 @@ class Quoridorx(Quoridor):
         j1 = Turtle()
         j2 = Turtle()
         self.screen = Screen()
-        self.afficher()
+        cardre(self.screen)
+        grille_v(self.screen)
+        mainloop()
 
     def afficher(self):
         jeu = self.partie
         position = [1, 2]
         setup(width=500, height=500)
-        cardre(self.screen)
-        mainloop()
+       # cardre(self.screen)
+       # mainloop()
 
 
 def cardre(screen):
@@ -32,6 +34,19 @@ def cardre(screen):
     goto(-225, -225)
     tortle.color("red")
     hideturtle()
+
+    
+def grille_v(screen):
+    scr = screen
+    a = [Turtle() for i in range(1, 10)]
+    for t in a:
+        t.penup()
+    for i, t in enumerate(a):
+        t.goto(-225 +50*(i+1), -225)
+    for t in a:
+        t.pendown()
+    for t in a:
+        t.sety(225)
 
 état = {
     "joueurs": [
