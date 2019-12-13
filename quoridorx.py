@@ -47,6 +47,14 @@ def grille_v(screen):
         t.pendown()
     for t in a:
         t.sety(225)
+    for t in a:
+        t.penup()
+    for i, t in enumerate(a):
+        t.goto(-225, -225++50*(i+1))
+    for t in a:
+        t.pendown()
+    for t in a:
+        t.setx(225)
 
 état = {
     "joueurs": [
