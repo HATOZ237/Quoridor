@@ -22,6 +22,7 @@ class Quoridorx(Quoridor):
 
 
 def cardre(screen):
+    speed(5)
     scr = screen
     tortle = Turtle()
     penup()
@@ -39,6 +40,8 @@ def cardre(screen):
 def grille_v(screen):
     scr = screen
     a = [Turtle() for i in range(1, 10)]
+    for t in a:
+        t.speed(10)
     for t in a:
         t.penup()
     for i, t in enumerate(a):
