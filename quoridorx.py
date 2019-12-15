@@ -11,6 +11,10 @@ class Quoridorx(Quoridor):
         self.screen = Screen()
         cardre(self.screen)
         grille_v(self.screen)
+        for x in self.partie["état"]["murs"]["horizontaux"]:
+            placer_murh(self.screen, x)
+        for x in self.partie["état"]["murs"]["verticaux"]:
+            placer_murv(self.screen, x)
         mainloop()
 
     def afficher(self):
@@ -27,25 +31,27 @@ def cardre(screen):
     tortle = Turtle()
     penup()
     pensize(5)
-    goto(-225, -225)
+    goto(-250, -250)
     pendown()
-    goto(-225, 225)
-    goto(225, 225)
-    goto(225, -225)
-    goto(-225, -225)
+    goto(-250, 250)
+    goto(250, 250)
+    goto(250, -250)
+    goto(-250, -250)
     tortle.color("red")
     hideturtle()
 
     
 def grille_v(screen):
     scr = screen
-    a = [Turtle() for i in range(1, 10)]
+    a = [Turtle() for i in range(1, 11)]
     for t in a:
-        t.speed(10)
+        t.hideturtle()
+    for t in a:
+        t.speed(5)
     for t in a:
         t.penup()
     for i, t in enumerate(a):
-        t.goto(-225 +50*(i+1), -225)
+        t.goto(-225 +50*(i), -225)
     for t in a:
         t.pendown()
     for t in a:
@@ -53,11 +59,32 @@ def grille_v(screen):
     for t in a:
         t.penup()
     for i, t in enumerate(a):
-        t.goto(-225, -225++50*(i+1))
+        t.goto(-225, -225++50*(i))
     for t in a:
         t.pendown()
     for t in a:
         t.setx(225)
+
+def placer_murh(screen, pos):
+    scr = screen
+    x, y = pos
+    penup()
+    pensize(5)
+    pencolor('blue')
+    goto(-275+50*x, -275+50*y)
+    pendown()
+    setx(-175 + 50*x)
+
+def placer_murv(screen, pos):
+    scr = screen
+    x, y = pos
+    penup()
+    pensize(5)
+    pencolor('red')
+    goto(-225+50*x, -275+50*y)
+    pendown()
+    sety(-175 + 50*y)
+    
 
 état = {
     "joueurs": [
