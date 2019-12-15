@@ -51,7 +51,7 @@ class Quoridor:
 
         # initialisation des murs
         mur_horizontaux = mur_verticaux = []
-        if murs.values != []:
+        if murs is not None:
             mur_horizontaux = murs['horizontaux']
             mur_verticaux = murs['verticaux']
 
@@ -140,11 +140,35 @@ class Quoridor:
         # si le numéro du joueur est autre que 1 ou 2
         if not(joueur in [1, 2]):
             raise QuoridorError
+        type_coup = ['MH', 'MV', 'D']
 
-        # si la partie est terminée
+        # verifier si la partie est terminée
         a = self.partie_terminée()
+        
         if a != False:
             raise QuoridorError
+
+        # determiner la position optimale pour le joueur 2
+        [pos_x, pos_y] = self.partie['état']["joueurs"][1]["pos"]
+        état = self.état_partie()
+        graphe = construire_graphe(
+            [player['pos'] for player in état['joueurs']],
+            état['murs']['horizontaux'],
+            état['murs']['verticaux'])
+        possibilité = list(graphe.successors(
+            tuple(self.partie['état']["joueurs"][joueur-1]["pos"])))
+        
+        coup = ()
+        for position in possibilité:
+            reponse = mur_horizontal_valide(self.état_partie(), [pos_x, pos_y])
+            if reponse == True :
+                coup = (position, type_coup[0])
+                return coup
+            reponse = mur_vertical_valide(self.état_partie(), [pos_x, pos_y])
+            if reponse == True :
+                coup = (position, type_coup[1])
+                return coup
+
         état = self.état_partie()
         graphe = construire_graphe(
             [joueur['pos'] for joueur in état['joueurs']],
@@ -155,7 +179,8 @@ class Quoridor:
                 nx.shortest_path(graphe, état['joueurs'][1]['pos'], 'B2')]
         self.déplacer_jeton(joueur, path[joueur-1][1])
         position = path[joueur-1][1]
-        return position
+        coup = (position, type_coup[2])
+        return coup
        
     def partie_terminée(self):
         """ Déterminer si la partie est terminée.
@@ -321,7 +346,7 @@ def matricee(état_partie):
     return matrice
 
 
-def erreur_initialisation1(joueurs, murs=None):
+def erreur_initialisation1(joueurs, murs):
     """ Détecte les erreurs de syntaxe"""
 
     if(not isinstance(joueurs, list) and not isinstance(joueurs, tuple)
@@ -340,11 +365,11 @@ def erreur_initialisation1(joueurs, murs=None):
                     raise QuoridorError
 
     # si murs n'est pas un dictionnaire lorsque présent.
-    if murs.values != [] and not isinstance(murs, dict):
+    if murs is not None and not isinstance(murs, dict):
         raise QuoridorError
 
 
-def erreur_initialisation2(joueurs, murs=None):
+def erreur_initialisation2(joueurs, murs):
     """ Détecte les erreurs de syntaxe"""
     # si le total des murs placés et plaçables n'est pas égal à 20
     count = 0
@@ -354,14 +379,14 @@ def erreur_initialisation2(joueurs, murs=None):
         elif isinstance(joueur, dict):
             count += int(joueur['murs'])
 
-    if murs != {}:
+    if murs is not None :
         count += len(murs['horizontaux'])
         count += len(murs['verticaux'])
     if count != 20:
         raise QuoridorError
 
     # si la position d'un mur est invalide.
-    if murs.values != []:
+    if murs is not None :
         for coord_pos in murs['horizontaux']:
             if not coord_pos[0] in range(1, 9) or not coord_pos[1] in range(2, 10):
                 raise QuoridorError
@@ -370,25 +395,48 @@ def erreur_initialisation2(joueurs, murs=None):
                 raise QuoridorError
 
 
-def erreur_initialisation3(joueurs, murs=None):
+def erreur_initialisation3(joueurs, murs):
     """ Détecte les erreurs de syntaxe"""
-    # si un element est inséré deux fois
-    for i in murs['horizontaux']:
-        count = 0
-        for j in murs['horizontaux']:
-            if i == j:
-                count += 1
-            if count > 1:
-                raise QuoridorError
-
     # si l'itérable de joueurs en contient plus de deux.
     if len(joueurs) > 2:
         raise QuoridorError
+    
+    # si un element est inséré deux fois
+    if murs is not None:
+        for i in murs['horizontaux']:
+            count = 0
+            for j in murs['horizontaux']:
+                if i == j:
+                    count += 1
+                if count > 1:
+                    raise QuoridorError
 
-    for i in murs['verticaux']:
-        count = 0
-        for j in murs['verticaux']:
-            if i == j:
-                count += 1
-            if count > 1:
-                raise QuoridorError
+        for i in murs['verticaux']:
+            count = 0
+            for j in murs['verticaux']:
+                if i == j:
+                    count += 1
+                if count > 1:
+                    raise QuoridorError
+
+def mur_horizontal_valide(état, position):
+    joueurs = état["joueurs"]
+    [x, y] = position
+    if position in état["murs"]["horizontaux"] :
+        return False
+    if [x+1, y] in état["murs"]["verticaux"]:
+        return False
+    if not x in range(1, 9) or not y in range(2, 10):
+        return False
+    return True 
+
+def mur_vertical_valide(état, position):
+    joueurs = état["joueurs"]
+    [x, y] = position
+    if position in état["murs"]["verticaux"] :
+        return False
+    if [x-1, y] in état["murs"]["horizontaux"]:
+        return False
+    if not x in range(2, 10) or not y in range(1, 9):
+        return False 
+    return True
