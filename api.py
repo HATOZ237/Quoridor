@@ -52,7 +52,7 @@ def mode_manuel_simple(idul):
     (identifiant, état) = débuter_partie(idul)
     Q1 = quoridor.Quoridor(état["joueurs"], état["murs"])
     start = True
-    fen = Quoridorx(état["joueurs"], état["murs"])
+    fen = Quoridorx(état["joueurs"], état["murs"])# j'implante le mode graphique
     while start:
         print(  "\t Entre le type de coup que tu veux effectuer -- \n:"
                 "\t 'D' pour déplacer le jeton \n"
@@ -65,8 +65,8 @@ def mode_manuel_simple(idul):
         position.append(input('Entre la position y correspondante'))
         try:
             Q1.partie['état'] = jouer_coup(identifiant, type_coup, position)
-            fen.afficher(Q1.partie['état'])
-            fen.partie['état'] = Q1.partie["état"]
+            fen.afficher(Q1.partie['état'])#j'actualise la partie
+            fen.partie['état'] = Q1.partie["état"] #l'ancien etat compare pour l'actualisation et c'est parti pour la boucle 
         except StopIteration as err:
             print(f"le gagnant est: {err} ")
             start = False 
