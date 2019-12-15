@@ -12,6 +12,8 @@ class Quoridorx(Quoridor):
         self.j2 = Turtle()
         self.j1.shape("turtle")
         self.j2.shape("turtle")
+        self.j1.color("purple")
+        self.j2.color("green")
         self.screen = Screen()
         cardre(self.screen)
         grille_v(self.screen)
@@ -66,9 +68,9 @@ def grille_v(screen):
     scr = screen
     a = [Turtle() for i in range(1, 11)]
     for t in a:
-        t.hideturtle()
+        t.speed(100)
     for t in a:
-        t.speed(5)
+        t.hideturtle()
     for t in a:
         t.penup()
     for i, t in enumerate(a):
@@ -90,7 +92,7 @@ def placer_murh(screen, pos):
     """placement des murs horizontaux"""
     scr = screen
     x, y = pos
-    speed(5)
+    speed(10)
     penup()
     pensize(5)
     pencolor('blue')
@@ -102,7 +104,7 @@ def placer_murv(screen, pos):
     """placement des murs verticaux"""
     scr = screen
     x, y = pos
-    speed(5)
+    speed(10)
     penup()
     pensize(5)
     pencolor('red')

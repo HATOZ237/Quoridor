@@ -7,6 +7,7 @@ import networkx as nx
 import random
 
 
+
 class QuoridorError(Exception):
     """
     Cette classe retourne des erreurs
@@ -152,6 +153,7 @@ class Quoridor:
             état['murs']['horizontaux'],
             état['murs']['verticaux'])
         positions = {'B1': (5, 10), 'B2': (5, 0)}
+
         joueur1 = nx.shortest_path(graphe, état['joueurs'][0]['pos'], 'B1')
         joueur2 = nx.shortest_path(graphe, état['joueurs'][1]['pos'], 'B2')
         
@@ -188,6 +190,7 @@ class Quoridor:
                      if ((joueur2[0])[0]  == (joueur2[1])[0]):
                          return ((joueur2[0])[0], (joueur2[0])[1])
 
+       
     def partie_terminée(self):
         """ Déterminer si la partie est terminée.
         """
@@ -423,4 +426,3 @@ def erreur_initialisation3(joueurs, murs=None):
                 count += 1
             if count > 1:
                 raise QuoridorError
-            
