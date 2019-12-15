@@ -31,12 +31,19 @@ class Quoridorx(Quoridor):
             a = etat_n["joueurs"][0]["pos"]
             deplacer(self.j1, a)
         if etat_a["joueurs"][1]["pos"] != etat_n["joueurs"][1]["pos"]:
-            deplacer(self.j2, etat_n["joueurs"][0]["pos"])
-        if etat_a["murs"]["horizontaux"][-1] != etat_n["murs"]["horizontaux"][-1]:
-            placer_murh(self.screen, etat_n["murs"]["horizontaux"][-1])
-        if etat_a["murs"]["verticaux"][-1] != etat_n["murs"]["verticaux"][-1]:
-            placer_murv(self.screen, etat_n["murs"]["verticaux"][-1])
-
+            b = etat_n["joueurs"][1]["pos"]
+            deplacer(self.j2, b)
+        mh_a = etat_a["murs"]["horizontaux"]
+        mh_n = etat_n["murs"]["horizontaux"]
+        mv_a = etat_a["murs"]["verticaux"]
+        mv_n = etat_n["murs"]["verticaux"]
+        ch = controle(mh_a, mh_n)
+        cv = controle(mv_a, mv_n)
+        if ch is not False:
+            placer_murh(self.screen, ch)
+        if cv is not False:
+            placer_murv(self.screen, cv)
+            
 
 def cardre(screen):
     """cette fonction cree le fameux cardre en bordure noir """
@@ -80,6 +87,7 @@ def grille_v(screen):
         t.setx(225)
 
 def placer_murh(screen, pos):
+    """placement des murs horizontaux"""
     scr = screen
     x, y = pos
     speed(5)
@@ -91,6 +99,7 @@ def placer_murh(screen, pos):
     setx(-180 + 50*x)
 
 def placer_murv(screen, pos):
+    """placement des murs verticaux"""
     scr = screen
     x, y = pos
     speed(5)
@@ -102,32 +111,18 @@ def placer_murv(screen, pos):
     sety(-180 + 50*y)
     
 def deplacer(tortle, pos):
+    """deplacer les tortues"""
     x, y = pos
     tortle.penup()
     tortle.goto(-250 + 50*x, -250+ 50*y)
-    
-    
-état = {
-    "joueurs": [
-        {"nom": "idul", "murs": 7, "pos": (5, 6)},
-        {"nom": "automate", "murs": 3, "pos": (5, 7)}
-    ],
-    "murs": {
-        "horizontaux": [(4, 4), (2, 6), (3, 8), (5, 8), (7, 8)],
-        "verticaux": [(6, 2), (4, 4), (2, 5), (7, 5), (7, 7)]
-    }
-}
-éta = {
-    "joueurs": [
-        {"nom": "idul", "murs": 7, "pos": (5, 2)},
-        {"nom": "automate", "murs": 3, "pos": (5, 7)}
-    ],
-    "murs": {
-        "horizontaux": [(4, 4), (2, 6), (3, 8), (5, 8), (7, 8)],
-        "verticaux": [(6, 2), (4, 4), (2, 5), (7, 5), (7, 7)]
-    }
-}
-jeu = Quoridorx(état['joueurs'], murs = état['murs'])
-jeu.afficher(éta)
-print(1 for i in range(10))
-mainloop()
+
+def controle(mura, murn):
+    """controle qualite des murs"""
+    if mura == murn:
+        return False
+    if mura == [] and murn != []:
+        return murn[-1]
+    if mura != []:
+        if mura[-1] == murn[-1]:
+            return False
+        return murn[-1]

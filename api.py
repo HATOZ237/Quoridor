@@ -3,6 +3,7 @@
 import requests
 import argparse
 from copy import deepcopy
+from quoridorx import *
 import quoridor
 
 
@@ -51,8 +52,8 @@ def mode_manuel_simple(idul):
     (identifiant, état) = débuter_partie(idul)
     Q1 = quoridor.Quoridor(état["joueurs"], état["murs"])
     start = True
+    fen = Quoridorx(état["joueurs"], état["murs"])
     while start:
-        print(Q1)
         print(  "\t Entre le type de coup que tu veux effectuer -- \n:"
                 "\t 'D' pour déplacer le jeton \n"
                 "\t 'MH' pour placer un mur horizontal \n"
@@ -64,6 +65,8 @@ def mode_manuel_simple(idul):
         position.append(input('Entre la position y correspondante'))
         try:
             Q1.partie['état'] = jouer_coup(identifiant, type_coup, position)
+            fen.afficher(Q1.partie['état'])
+            fen.partie['état'] = Q1.partie["état"]
         except StopIteration as err:
             print(f"le gagnant est: {err} ")
             start = False 
@@ -75,7 +78,6 @@ def mode_manuel_complex(idul):
     Q1 = quoridor.Quoridor(état["joueurs"], état["murs"])
     start = True
     while start:
-        affichage_graphique(Q1.état_partie())
         print(  "\t Entre le type de coup que tu veux effectuer -- \n:"
                 "\t 'D' pour déplacer le jeton \n"
                 "\t 'MH' pour placer un mur horizontal \n"
@@ -111,3 +113,4 @@ def mode_automatique_simple(idul):
 if __name__ == "__main__":
     args = analyser_commande()
     mode_manuel_simple(args.idul)
+mainloop()
