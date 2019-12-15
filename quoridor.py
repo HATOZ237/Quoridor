@@ -176,54 +176,15 @@ class Quoridor:
             [joueur['pos'] for joueur in état['joueurs']],
             état['murs']['horizontaux'],
             état['murs']['verticaux'])
+
         positions = {'B1': (5, 10), 'B2': (5, 0)}
-<<<<<<< HEAD
         path = [nx.shortest_path(graphe, état['joueurs'][0]['pos'], 'B1'),
                 nx.shortest_path(graphe, état['joueurs'][1]['pos'], 'B2')]
         self.déplacer_jeton(joueur, path[joueur-1][1])
         position = path[joueur-1][1]
         coup = (position, type_coup[2])
         return coup
-=======
 
-        joueur1 = nx.shortest_path(graphe, état['joueurs'][0]['pos'], 'B1')
-        joueur2 = nx.shortest_path(graphe, état['joueurs'][1]['pos'], 'B2')
-        
-        
-        #la boucle se réalisera jusqu'a ce que la partie soit terminée
-        while self.partie_terminée() is False:
-            mettre_mur, bouger_pion = 1, 2
-            choix_possible = [1, 2]
-           
-            #la probabilité de placer un mur est plus elevée que de se deplacer.
-            choix = random.choices(choix_possible, weight = [(état['joueurs'][0]['murs']), 1])
-           
-            # je me deplace
-            if choix == 2:
-                position = joueur1[1] 
-                return position
-            else:
-                # si mon chemin est plus court que celui du serveur je me deplace
-                if (len(joueur2) > len(joueur1)):
-                    position = joueur1[1] 
-                    return position
-
-                else:
-                     #placez un mur vertical
-                     if ((joueur2[0])[1]  == (joueur2[1])[1]):
-                         # placons un mur vertical a gauche
-                         if (joueur2[0])[0] < (joueur2[1])[0]:
-                             return ((joueur2[1])[0], (joueur2[0])[1])
-                         # placons un mur vertical a droite 
-                         else:
-                             return  ((joueur2[0])[0], (joueur2[0])[1])
-
-                     #placer un mur horizontal
-                     if ((joueur2[0])[0]  == (joueur2[1])[0]):
-                         return ((joueur2[0])[0], (joueur2[0])[1])
-
->>>>>>> bf0f54a24a082eca49f4fd2509f34cbe70583c55
-       
     def partie_terminée(self):
         """ Déterminer si la partie est terminée.
         """
