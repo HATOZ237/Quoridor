@@ -54,19 +54,19 @@ def mode_manuel_simple(idul):
     start = True
     fen = Quoridorx(état["joueurs"], état["murs"])# j'implante le mode graphique
     while start:
-        print(  "\t Entre le type de coup que tu veux effectuer -- \n:"
+        print(  "Entre le type de coup que tu veux effectuer -- \n:"
                 "\t 'D' pour déplacer le jeton \n"
                 "\t 'MH' pour placer un mur horizontal \n"
                 "\t ou 'MV' pour placer un mur vertical ")
-        type_coup = input('\t')
+        type_coup = input('\n- ')
         position = []
         print('Entre la position (x, y) correspondante')
-        position.append(input('Entre la position x correspondante'))
-        position.append(input('Entre la position y correspondante'))
+        position.append(input('- Entre la position x correspondante: '))
+        position.append(input('- Entre la position y correspondante: '))
         try:
             Q1.partie['état'] = jouer_coup(identifiant, type_coup, position)
             fen.afficher(Q1.partie['état'])#j'actualise la partie
-            fen.partie['état'] = Q1.partie["état"] #l'ancien etat compare pour l'actualisation et c'est parti pour la boucle 
+            fen.partie['état'] = Q1.partie["état"] #l'ancien etat comparé pour l'actualisation et c'est parti pour la boucle 
         except StopIteration as err:
             print(f"le gagnant est: {err} ")
             start = False 
