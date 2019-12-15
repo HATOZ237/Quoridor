@@ -153,33 +153,11 @@ class Quoridor:
             état['murs']['horizontaux'],
             état['murs']['verticaux'])
         positions = {'B1': (5, 9), 'B2': (5, 0)}
-        deplacement_joueur2 = nx.shortest_path(graphe, état['joueurs'][1]['pos'], 'B2')
-        deplacement_joueur1 = nx.shortest_path(graphe, état['joueurs'][0]['pos'], 'B1')
-        #determiner le plus court chemin de l'adversaire
-        def cheminpluscourt(liste, position):
-            chemin = max()
-            #calcul distance entre deux points
-            for a, b in liste:
-                c , d = position
-                dist = sqrt((a - c)**2 + (b - d)**2)
-                if dist < chemin :
-                    chemin = dist
-                    court_chemin = (a, b)
-            return court_chemin
-        
-        #la boucle se réalisera jusqu'a ce que la partie soit terminée
-        while self.partie_terminée() is False:
-            
-            choix_possible = [self.placer_mur(), self.déplacer_jeton()]
-            #la probabilité de placer un mur est plus elevée que de se deplacer.
-            choix = random.choices(choix_possible, weight = [(état['joueurs'][0]['murs']), 3])
-
-            if choix = self.déplacer_jeton():
-                x, y = cheminpluscourt(deplacement_joueur1, (5,9))
-                return (x,y)
-                #le joueur doit allée sur cette nouvelle direction
-            if choix = self.placer_mur():
-
+        path = [nx.shortest_path(graphe, état['joueurs'][0]['pos'], 'B1'),
+                nx.shortest_path(graphe, état['joueurs'][1]['pos'], 'B2')]
+        self.déplacer_jeton(joueur, path[joueur-1][1])
+        position = path[joueur-1][1] # comprend pas
+        return position
     def partie_terminée(self):
         """ Déterminer si la partie est terminée.
         """
