@@ -156,7 +156,7 @@ class Quoridor:
         self.déplacer_jeton(joueur, path[joueur-1][1])
         position = path[joueur-1][1]
         return position
-
+       
     def partie_terminée(self):
         """ Déterminer si la partie est terminée.
         """
