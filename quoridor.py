@@ -4,7 +4,6 @@ Ce module est la deuxième partie du projet,
 """
 from copy import deepcopy
 import networkx as nx
-from math import sqrt
 import random
 
 
