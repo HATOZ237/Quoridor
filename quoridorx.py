@@ -16,16 +16,16 @@ class QuoridorX(Quoridor):
         self.j1.color("purple")
         self.j2.color("green")
         self.screen = turtle.Screen()
-        cardre(self.screen)
-        grille_v(self.screen)
+        cardre()
+        grille_v()
         deplacer(self.j1, (5, 1))
         deplacer(self.j2, (5, 9))
         self.j1.left(90)
         self.j2.left(-90)
         for x in self.partie["état"]["murs"]["horizontaux"]:
-            placer_murh(self.screen, x)
+            placer_murh(x)
         for x in self.partie["état"]["murs"]["verticaux"]:
-            placer_murv(self.screen, x)
+            placer_murv(x)
 
     def afficher(self, etat_n):
         """je ne sais pas encore ce que cette methode fait """
@@ -44,13 +44,13 @@ class QuoridorX(Quoridor):
         cv = controle(mv_a, mv_n)
         if ch is not False:
             for x in ch:
-                placer_murh(self.screen, x)
+                placer_murh(x)
         if cv is not False:
             for x in cv:
-                placer_murv(self.screen, x)
+                placer_murv(x)
 
 
-def cardre(screen):
+def cardre():
     """cette fonction cree le fameux cardre en bordure noir """
     t = turtle.Turtle()
     t.hideturtle()
@@ -65,7 +65,7 @@ def cardre(screen):
     t.goto(-250, -250)
 
 
-def grille_v(screen):
+def grille_v():
     """construction de ma grille"""
     a = [turtle.Turtle() for i in range(1, 11)]
     for t in a:
@@ -90,7 +90,7 @@ def grille_v(screen):
         t.setx(225)
 
 
-def placer_murh(screen, pos):
+def placer_murh(pos):
     """placement des murs horizontaux"""
     t = turtle.Turtle()
     x, y = pos
@@ -103,7 +103,7 @@ def placer_murh(screen, pos):
     t.setx(-180 + 50*x)
 
 
-def placer_murv(screen, pos):
+def placer_murv(pos):
     """placement des murs verticaux"""
     t = turtle.Turtle()
     x, y = pos
