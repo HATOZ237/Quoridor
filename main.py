@@ -1,6 +1,6 @@
 import api
 import quoridor
-from quoridorx import *
+import quoridorx 
 import argparse
 
 
@@ -50,7 +50,7 @@ def mode_manuel_graphique(idul):
     Q1 = quoridor.Quoridor(état["joueurs"], état["murs"])
     start = True
     # j'implante le mode graphique
-    fen = QuoridorX(état["joueurs"], état["murs"])
+    fen = quoridorx.QuoridorX(état["joueurs"], état["murs"])
     while start:
         print(Q1.état_partie())
         print("Entre le type de coup que tu veux effectuer -- \n:"
@@ -99,7 +99,7 @@ def mode_automatique_graphique(idul):
     Q1 = quoridor.Quoridor(état["joueurs"], état["murs"])
     start = True
     # j'implante le mode graphique
-    fen = QuoridorX(état["joueurs"], état["murs"])
+    fen = quoridorx.QuoridorX(état["joueurs"], état["murs"])
     while start:
         (position, type_coup) = Q1.jouer_coup(1)
         try:
@@ -128,4 +128,4 @@ def jeu():
 
 
 jeu()
-turtle.mainloop()
+quoridorx.turtle.mainloop()
