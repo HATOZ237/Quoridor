@@ -128,4 +128,4 @@ def jeu():
 
 
 jeu()
-mainloop()
+turtle.mainloop()

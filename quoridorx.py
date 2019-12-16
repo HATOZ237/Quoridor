@@ -1,6 +1,5 @@
 from quoridor import *
-from turtle import *
-import time
+import turtle
 
 
 class QuoridorX(Quoridor):
@@ -8,13 +7,13 @@ class QuoridorX(Quoridor):
     def __init__(self, joueurs, murs=None):
         """j'herite de la classe qu0ridor puis j'installe le graphe"""
         super().__init__(joueurs, murs=murs)
-        self.j1 = Turtle()
-        self.j2 = Turtle()
+        self.j1 = turtle.Turtle()
+        self.j2 = turtle.Turtle()
         self.j1.shape("turtle")
         self.j2.shape("turtle")
         self.j1.color("purple")
         self.j2.color("green")
-        self.screen = Screen()
+        self.screen = turtle.Screen()
         cardre(self.screen)
         grille_v(self.screen)
         deplacer(self.j1, (5, 1))
@@ -51,24 +50,23 @@ class QuoridorX(Quoridor):
 
 def cardre(screen):
     """cette fonction cree le fameux cardre en bordure noir """
-    hideturtle()
-    speed(5)
+    turtle.hideturtle()
+    turtle.speed(5)
     scr = screen
-    tortle = Turtle()
-    penup()
-    pensize(5)
-    goto(-250, -250)
-    pendown()
-    goto(-250, 250)
-    goto(250, 250)
-    goto(250, -250)
-    goto(-250, -250)
+    turtle.penup()
+    turtle.pensize(5)
+    turtle.goto(-250, -250)
+    turtle.pendown()
+    turtle.goto(-250, 250)
+    turtle.goto(250, 250)
+    turtle.goto(250, -250)
+    turtle.goto(-250, -250)
 
 
 def grille_v(screen):
     """construction de ma grille"""
     scr = screen
-    a = [Turtle() for i in range(1, 11)]
+    a = [turtle.Turtle() for i in range(1, 11)]
     for t in a:
         t.speed(100)
     for t in a:
@@ -95,26 +93,26 @@ def placer_murh(screen, pos):
     """placement des murs horizontaux"""
     scr = screen
     x, y = pos
-    speed(10)
-    penup()
-    pensize(5)
-    pencolor('blue')
-    goto(-270+50*x, -275+50*y)
-    pendown()
-    setx(-180 + 50*x)
+    turtle.speed(10)
+    turtle.penup()
+    turtle.pensize(5)
+    turtle.pencolor('blue')
+    turtle.goto(-270+50*x, -275+50*y)
+    turtle.pendown()
+    turtle.setx(-180 + 50*x)
 
 
 def placer_murv(screen, pos):
     """placement des murs verticaux"""
     scr = screen
     x, y = pos
-    speed(10)
-    penup()
-    pensize(5)
-    pencolor('red')
-    goto(-275+50*x, -270+50*y)
-    pendown()
-    sety(-180 + 50*y)
+    turtle.speed(10)
+    turtle.penup()
+    turtle.pensize(5)
+    turtle.pencolor('red')
+    turtle.goto(-275+50*x, -270+50*y)
+    turtle.pendown()
+    turtle.sety(-180 + 50*y)
 
 
 def deplacer(tortle, pos):
