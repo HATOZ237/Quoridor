@@ -78,8 +78,8 @@ class Quoridor:
         mv = état_partie["murs"]["verticaux"]
         # incorporation des élements du jeu : joueurs et murs
         # convertit les coordonnées des joueurs
-
-        for i in list(j1, j2):
+        
+        for i in [j1, j2]:
             i[0], i[1] = 2*(10-i[1]), i[0]*4
             # convertit les coordonnées des murs horizontaux
         for i in mh:
