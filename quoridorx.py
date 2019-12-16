@@ -1,6 +1,6 @@
 """ce module me permet de dessiner le graphe de notre partie de quooridor"""
-from quoridor import Quoridor
 import turtle
+from quoridor import Quoridor
 
 
 class QuoridorX(Quoridor):
@@ -93,6 +93,7 @@ def grille_v():
 def placer_murh(pos):
     """placement des murs horizontaux"""
     t = turtle.Turtle()
+    t.hideturtle()
     x, y = pos
     t.speed(10)
     t.penup()
@@ -106,6 +107,7 @@ def placer_murh(pos):
 def placer_murv(pos):
     """placement des murs verticaux"""
     t = turtle.Turtle()
+    t.hideturtle()
     x, y = pos
     t.speed(10)
     t.penup()
@@ -135,6 +137,6 @@ def controle(mura, murn):
         else:
             a = []
             for x in murn:
-                if not(x in mura):
+                if not (x in mura):
                     a.append(x)
             return a
