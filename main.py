@@ -1,6 +1,6 @@
 import api
 import quoridor
-import quoridorx 
+import quoridorx
 import argparse
 
 

@@ -3,7 +3,7 @@
 import requests
 import argparse
 from copy import deepcopy
-import quoridorx 
+import quoridorx
 import quoridor
 
 
@@ -35,7 +35,8 @@ def jouer_coup(id_partie, type_coup, position):
 def analyser_commande():
     """ analyseur de ligne de commande """
     parser = argparse.ArgumentParser(description='Jeu Quoridor - phase 1')
-    parser.add_argument('idul', help='Jouer en mode manuel contre le serveur.', type=str)
+    parser.add_argument(
+        'idul', help='Jouer en mode manuel contre le serveur.', type=str)
     parser.add_argument('-a', '--automatique', action='store_true',
                         help='Jouer en mode automatique contre le serveur.')
     parser.add_argument('-x', '--manuel', action='store_true',
@@ -43,4 +44,3 @@ def analyser_commande():
     parser.add_argument('-ax', '--automatiquex', action='store_true',
                         help='Jouer en mode automatique contre le serveur avec affichage graphique.')
     return parser.parse_args()
-
