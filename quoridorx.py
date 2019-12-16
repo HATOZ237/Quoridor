@@ -4,6 +4,7 @@ import turtle
 
 
 class QuoridorX(Quoridor):
+    """classe du graphique"""
 
     def __init__(self, joueurs, murs=None):
         """j'herite de la classe qu0ridor puis j'installe le graphe"""
@@ -51,22 +52,21 @@ class QuoridorX(Quoridor):
 
 def cardre(screen):
     """cette fonction cree le fameux cardre en bordure noir """
-    turtle.hideturtle()
-    turtle.speed(5)
-    scr = screen
-    turtle.penup()
-    turtle.pensize(5)
-    turtle.goto(-250, -250)
-    turtle.pendown()
-    turtle.goto(-250, 250)
-    turtle.goto(250, 250)
-    turtle.goto(250, -250)
-    turtle.goto(-250, -250)
+    t = turtle.Turtle()
+    t.hideturtle()
+    t.speed(5)
+    t.penup()
+    t.pensize(5)
+    t.goto(-250, -250)
+    t.pendown()
+    t.goto(-250, 250)
+    t.goto(250, 250)
+    t.goto(250, -250)
+    t.goto(-250, -250)
 
 
 def grille_v(screen):
     """construction de ma grille"""
-    scr = screen
     a = [turtle.Turtle() for i in range(1, 11)]
     for t in a:
         t.speed(100)
@@ -92,28 +92,28 @@ def grille_v(screen):
 
 def placer_murh(screen, pos):
     """placement des murs horizontaux"""
-    scr = screen
+    t = turtle.Turtle()
     x, y = pos
-    turtle.speed(10)
-    turtle.penup()
-    turtle.pensize(5)
-    turtle.pencolor('blue')
-    turtle.goto(-270+50*x, -275+50*y)
-    turtle.pendown()
-    turtle.setx(-180 + 50*x)
+    t.speed(10)
+    t.penup()
+    t.pensize(5)
+    t.pencolor('blue')
+    t.goto(-270+50*x, -275+50*y)
+    t.pendown()
+    t.setx(-180 + 50*x)
 
 
 def placer_murv(screen, pos):
     """placement des murs verticaux"""
-    scr = screen
+    t = turtle.Turtle()
     x, y = pos
-    turtle.speed(10)
-    turtle.penup()
-    turtle.pensize(5)
-    turtle.pencolor('red')
-    turtle.goto(-275+50*x, -270+50*y)
-    turtle.pendown()
-    turtle.sety(-180 + 50*y)
+    t.speed(10)
+    t.penup()
+    t.pensize(5)
+    t.pencolor('red')
+    t.goto(-275+50*x, -270+50*y)
+    t.pendown()
+    t.sety(-180 + 50*y)
 
 
 def deplacer(tortle, pos):
