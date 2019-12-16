@@ -78,7 +78,8 @@ class Quoridor:
         mv = état_partie["murs"]["verticaux"]
         # incorporation des élements du jeu : joueurs et murs
         # convertit les coordonnées des joueurs
-        for i in [j1, j2]:
+
+        for i in list(j1, j2):
             i[0], i[1] = 2*(10-i[1]), i[0]*4
             # convertit les coordonnées des murs horizontaux
         for i in mh:
@@ -177,10 +178,10 @@ class Quoridor:
                 coup = (position, type_coup[1])
                 print(coup , 'line 171')
                 return coup
-        coup = self.avanver_joeur(index2+1)
+        coup = self.avancer_joueur(index2+1)
         return coup
     
-    def avanver_joeur(self, joueur):
+    def avancer_joueur(self, joueur):
         """ à un niveau je ne comprends plus ce que je fais donc
         laisse seulement"""
         # si le numéro du joueur est autre que 1 ou 2
@@ -255,6 +256,7 @@ class Quoridor:
         if orientation == 'horizontal':
             self.partie['état']['murs']['horizontaux'].append(position)
             self.partie['état']['joueurs'][joueur-1]['murs'] -= 1
+
 
 
 def verify(pos, état, ori, j):
