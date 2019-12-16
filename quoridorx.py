@@ -3,7 +3,7 @@ from turtle import *
 import time
 
 
-class Quoridorx(Quoridor):
+class QuoridorX(Quoridor):
 
     def __init__(self, joueurs, murs=None):
         """j'herite de la classe qu0ridor puis j'installe le graphe"""
@@ -45,10 +45,11 @@ class Quoridorx(Quoridor):
             placer_murh(self.screen, ch)
         if cv is not False:
             placer_murv(self.screen, cv)
-            
+
 
 def cardre(screen):
     """cette fonction cree le fameux cardre en bordure noir """
+    hideturtle()
     speed(5)
     scr = screen
     tortle = Turtle()
@@ -60,9 +61,8 @@ def cardre(screen):
     goto(250, 250)
     goto(250, -250)
     goto(-250, -250)
-    hideturtle()
 
-    
+
 def grille_v(screen):
     """construction de ma grille"""
     scr = screen
@@ -74,7 +74,7 @@ def grille_v(screen):
     for t in a:
         t.penup()
     for i, t in enumerate(a):
-        t.goto(-225 +50*(i), -225)
+        t.goto(-225 + 50*(i), -225)
     for t in a:
         t.pendown()
     for t in a:
@@ -88,6 +88,7 @@ def grille_v(screen):
     for t in a:
         t.setx(225)
 
+
 def placer_murh(screen, pos):
     """placement des murs horizontaux"""
     scr = screen
@@ -100,6 +101,7 @@ def placer_murh(screen, pos):
     pendown()
     setx(-180 + 50*x)
 
+
 def placer_murv(screen, pos):
     """placement des murs verticaux"""
     scr = screen
@@ -111,12 +113,14 @@ def placer_murv(screen, pos):
     goto(-275+50*x, -270+50*y)
     pendown()
     sety(-180 + 50*y)
-    
+
+
 def deplacer(tortle, pos):
     """deplacer les tortues"""
     x, y = pos
     tortle.penup()
-    tortle.goto(-250 + 50*x, -250+ 50*y)
+    tortle.goto(-250 + 50*x, -250 + 50*y)
+
 
 def controle(mura, murn):
     """controle qualite des murs"""
