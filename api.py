@@ -3,7 +3,7 @@
 import requests
 import argparse
 from copy import deepcopy
-from quoridorx import *
+import quoridorx 
 import quoridor
 
 

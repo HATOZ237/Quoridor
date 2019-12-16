@@ -1,4 +1,5 @@
-from quoridor import *
+"""ce module me permet de dessiner le graphe de notre partie de quooridor"""
+from quoridor import Quoridor
 import turtle
 
 
