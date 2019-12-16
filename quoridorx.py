@@ -42,9 +42,11 @@ class QuoridorX(Quoridor):
         ch = controle(mh_a, mh_n)
         cv = controle(mv_a, mv_n)
         if ch is not False:
-            placer_murh(self.screen, ch)
+            for x in ch:
+                placer_murh(self.screen, x)
         if cv is not False:
-            placer_murv(self.screen, cv)
+            for x in cv:
+                placer_murv(self.screen, x)
 
 
 def cardre(screen):
@@ -127,8 +129,13 @@ def controle(mura, murn):
     if mura == murn:
         return False
     if mura == [] and murn != []:
-        return murn[-1]
+        return [murn[-1]]
     if mura != []:
         if mura[-1] == murn[-1]:
             return False
-        return murn[-1]
+        else:
+            a = []
+            for x in murn:
+                if not(x in mura):
+                    a.append(x)
+            return a

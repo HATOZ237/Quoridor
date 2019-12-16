@@ -23,7 +23,7 @@ def mode_manuel_simple(idul):
     Q1 = quoridor.Quoridor(état["joueurs"], état["murs"])
     start = True
     if état["joueurs"][0]['nom'] != idul:
-        print(Q1)
+        print(Q1.état_partie())
     while start:
         print(Q1)
         print("\t Entre le type de coup que tu veux effectuer -- \n:"
@@ -52,6 +52,7 @@ def mode_manuel_graphique(idul):
     # j'implante le mode graphique
     fen = QuoridorX(état["joueurs"], état["murs"])
     while start:
+        print(Q1.état_partie())
         print("Entre le type de coup que tu veux effectuer -- \n:"
               "\t 'D' pour déplacer le jeton \n"
               "\t 'MH' pour placer un mur horizontal \n"
