@@ -4,8 +4,6 @@ Ce module est la deuxième partie du projet,
 """
 from copy import deepcopy
 import networkx as nx
-import random
-
 
 
 class QuoridorError(Exception):
@@ -137,8 +135,8 @@ class Quoridor:
             self.partie['état']["joueurs"][joueur-1]["pos"] = list(position)
 
     def jouer_coup(self, joueur):
-
-
+        """ à un niveau je ne comprends plus ce que je fais donc
+        laisse seulement"""
         # si le numéro du joueur est autre que 1 ou 2
         if not(joueur in [1, 2]):
             raise QuoridorError
@@ -149,41 +147,59 @@ class Quoridor:
         
         if a != False:
             raise QuoridorError
-
+        index = 0
         # determiner la position optimale pour le joueur 2
-        [pos_x, pos_y] = self.partie['état']["joueurs"][1]["pos"]
+        if self.partie['état']["joueurs"][0]["nom"] == 'robot':
+            index1, index2 = 0 , 1
+        else :
+            index1, index2 = 1, 0
+        [pos_x, pos_y] = self.partie['état']["joueurs"][index1]["pos"]
         état = self.état_partie()
         graphe = construire_graphe(
             [player['pos'] for player in état['joueurs']],
             état['murs']['horizontaux'],
             état['murs']['verticaux'])
         possibilité = list(graphe.successors(
-            tuple(self.partie['état']["joueurs"][joueur-1]["pos"])))
-        
+            tuple(self.partie['état']["joueurs"][index1]["pos"])))
+        for ind, poss in enumerate(possibilité):
+            if not isinstance(poss[1], str) and poss[1] > pos_y :
+                del possibilité[ind]
         coup = ()
+        print(possibilité)
         for position in possibilité:
             reponse = mur_horizontal_valide(self.état_partie(), [pos_x, pos_y])
-            if reponse == True :
+            if reponse :
                 coup = (position, type_coup[0])
+                print(coup , 'line 166')
                 return coup
             reponse = mur_vertical_valide(self.état_partie(), [pos_x, pos_y])
-            if reponse == True :
+            if reponse :
                 coup = (position, type_coup[1])
+                print(coup , 'line 171')
                 return coup
-
+        coup = self.avanver_joeur(index2+1)
+        return coup
+    
+    def avanver_joeur(self, joueur):
+        """ à un niveau je ne comprends plus ce que je fais donc
+        laisse seulement"""
+        # si le numéro du joueur est autre que 1 ou 2
+        if not(joueur in [1, 2]):
+            raise QuoridorError
+        # si la partie est terminée
+        a = self.partie_terminée()
+        b = False
+        if a != b:
+            raise QuoridorError
         état = self.état_partie()
         graphe = construire_graphe(
             [joueur['pos'] for joueur in état['joueurs']],
             état['murs']['horizontaux'],
             état['murs']['verticaux'])
-
         positions = {'B1': (5, 10), 'B2': (5, 0)}
         path = [nx.shortest_path(graphe, état['joueurs'][0]['pos'], 'B1'),
                 nx.shortest_path(graphe, état['joueurs'][1]['pos'], 'B2')]
-        self.déplacer_jeton(joueur, path[joueur-1][1])
-        position = path[joueur-1][1]
-        coup = (position, type_coup[2])
-        return coup
+        return path[joueur-1][1]
 
     def partie_terminée(self):
         """ Déterminer si la partie est terminée.
@@ -425,13 +441,18 @@ def erreur_initialisation3(joueurs, murs):
 def mur_horizontal_valide(état, position):
     joueurs = état["joueurs"]
     [x, y] = position
+    p1 = [x-1, y]
+    p2 = [x+1, y]
     if position in état["murs"]["horizontaux"] :
+        return False
+    if p1 in état["murs"]["horizontaux"] or p2 in état["murs"]["horizontaux"] :
         return False
     if [x+1, y] in état["murs"]["verticaux"]:
         return False
-    if not x in range(1, 9) or not y in range(2, 10):
+    if x not in range(1, 9) or y not in range(2, 10):
         return False
     return True 
+
 
 def mur_vertical_valide(état, position):
     joueurs = état["joueurs"]
@@ -440,6 +461,6 @@ def mur_vertical_valide(état, position):
         return False
     if [x-1, y] in état["murs"]["horizontaux"]:
         return False
-    if not x in range(2, 10) or not y in range(1, 9):
+    if not x in range(2, 10) and not y in range(1, 9):
         return False 
     return True

@@ -12,7 +12,6 @@ def débuter_partie(idul):
     url_base = 'https://python.gel.ulaval.ca/quoridor/api/'
     rep = requests.post(url_base+'débuter/', data={'idul': idul})
     rep = rep.json()
-    print(rep)
     if 'id' in rep and 'état' in rep:
         return (rep['id'], rep['état'])
     print(rep['message'])
