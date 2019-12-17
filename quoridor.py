@@ -168,14 +168,10 @@ class Quoridor:
             tuple(self.partie['état']["joueurs"][index1]["pos"])))
 
         coup = ()
-        """for poss in possibilité:
-            if poss[1] <= pos_y and not poss in self.partie['état']["murs"]['horizontaux']:
-                if poss[0] == 1 or poss[0] == 2:
-                    break
-                coup = (poss, type_coup[0])
-                if coup != self.last_coup:
-                    self.last_coup = coup
-                    return coup"""
+        position = nx.shortest_path(graphe, tuple(état['joueurs'][index1]["pos"]), 'B2')
+        coup = (position, type_coup[2])
+        if(mur_horizontal_valide(état, coup)):
+            return coup 
         position = nx.shortest_path(graphe, tuple(état['joueurs'][index2]["pos"]), 'B1')
         coup = (position, type_coup[2])
         if coup != self.last_coup:
@@ -447,13 +443,12 @@ def erreur_initialisation3(joueurs, murs):
 def mur_horizontal_valide(état, position):
     joueurs = état["joueurs"]
     [x, y] = position
-    p1 = (x-1, y)
-    p2 = (x+1, y)
+    print(x, y)
+    p1 = [x-1, y]
+    p2 = [x+1, y]
     if position in état["murs"]["horizontaux"]:
-        print("line 449")
         return False
     if p1 in état["murs"]["horizontaux"] or p2 in état["murs"]["horizontaux"]:
-        print("line 449")
         return False
     if (x+1, y) in état["murs"]["verticaux"]:
         return False
