@@ -1,30 +1,31 @@
-from quoridor import *
-from turtle import *
-import time
+"""ce module me permet de dessiner le graphe de notre partie de quooridor"""
+import turtle
+from quoridor import Quoridor
 
 
-class Quoridorx(Quoridor):
+class QuoridorX(Quoridor):
+    """classe du graphique"""
 
     def __init__(self, joueurs, murs=None):
         """j'herite de la classe qu0ridor puis j'installe le graphe"""
         super().__init__(joueurs, murs=murs)
-        self.j1 = Turtle()
-        self.j2 = Turtle()
+        self.j1 = turtle.Turtle()
+        self.j2 = turtle.Turtle()
         self.j1.shape("turtle")
         self.j2.shape("turtle")
         self.j1.color("purple")
         self.j2.color("green")
-        self.screen = Screen()
-        cardre(self.screen)
-        grille_v(self.screen)
+        self.screen = turtle.Screen()
+        cardre()
+        grille_v()
         deplacer(self.j1, (5, 1))
         deplacer(self.j2, (5, 9))
         self.j1.left(90)
         self.j2.left(-90)
         for x in self.partie["état"]["murs"]["horizontaux"]:
-            placer_murh(self.screen, x)
+            placer_murh(x)
         for x in self.partie["état"]["murs"]["verticaux"]:
-            placer_murv(self.screen, x)
+            placer_murv(x)
 
     def afficher(self, etat_n):
         """je ne sais pas encore ce que cette methode fait """
@@ -42,31 +43,31 @@ class Quoridorx(Quoridor):
         ch = controle(mh_a, mh_n)
         cv = controle(mv_a, mv_n)
         if ch is not False:
-            placer_murh(self.screen, ch)
+            for x in ch:
+                placer_murh(x)
         if cv is not False:
-            placer_murv(self.screen, cv)
-            
+            for x in cv:
+                placer_murv(x)
 
-def cardre(screen):
+
+def cardre():
     """cette fonction cree le fameux cardre en bordure noir """
-    speed(5)
-    scr = screen
-    tortle = Turtle()
-    penup()
-    pensize(5)
-    goto(-250, -250)
-    pendown()
-    goto(-250, 250)
-    goto(250, 250)
-    goto(250, -250)
-    goto(-250, -250)
-    hideturtle()
+    t = turtle.Turtle()
+    t.hideturtle()
+    t.speed(5)
+    t.penup()
+    t.pensize(5)
+    t.goto(-250, -250)
+    t.pendown()
+    t.goto(-250, 250)
+    t.goto(250, 250)
+    t.goto(250, -250)
+    t.goto(-250, -250)
 
-    
-def grille_v(screen):
+
+def grille_v():
     """construction de ma grille"""
-    scr = screen
-    a = [Turtle() for i in range(1, 11)]
+    a = [turtle.Turtle() for i in range(1, 11)]
     for t in a:
         t.speed(100)
     for t in a:
@@ -74,7 +75,7 @@ def grille_v(screen):
     for t in a:
         t.penup()
     for i, t in enumerate(a):
-        t.goto(-225 +50*(i), -225)
+        t.goto(-225 + 50*(i), -225)
     for t in a:
         t.pendown()
     for t in a:
@@ -88,43 +89,54 @@ def grille_v(screen):
     for t in a:
         t.setx(225)
 
-def placer_murh(screen, pos):
-    """placement des murs horizontaux"""
-    scr = screen
-    x, y = pos
-    speed(10)
-    penup()
-    pensize(5)
-    pencolor('blue')
-    goto(-270+50*x, -275+50*y)
-    pendown()
-    setx(-180 + 50*x)
 
-def placer_murv(screen, pos):
-    """placement des murs verticaux"""
-    scr = screen
+def placer_murh(pos):
+    """placement des murs horizontaux"""
+    t = turtle.Turtle()
+    t.hideturtle()
     x, y = pos
-    speed(10)
-    penup()
-    pensize(5)
-    pencolor('red')
-    goto(-275+50*x, -270+50*y)
-    pendown()
-    sety(-180 + 50*y)
-    
+    t.speed(10)
+    t.penup()
+    t.pensize(5)
+    t.pencolor('blue')
+    t.goto(-270+50*x, -275+50*y)
+    t.pendown()
+    t.setx(-180 + 50*x)
+
+
+def placer_murv(pos):
+    """placement des murs verticaux"""
+    t = turtle.Turtle()
+    t.hideturtle()
+    x, y = pos
+    t.speed(10)
+    t.penup()
+    t.pensize(5)
+    t.pencolor('red')
+    t.goto(-275+50*x, -270+50*y)
+    t.pendown()
+    t.sety(-180 + 50*y)
+
+
 def deplacer(tortle, pos):
     """deplacer les tortues"""
     x, y = pos
     tortle.penup()
-    tortle.goto(-250 + 50*x, -250+ 50*y)
+    tortle.goto(-250 + 50*x, -250 + 50*y)
+
 
 def controle(mura, murn):
     """controle qualite des murs"""
     if mura == murn:
         return False
     if mura == [] and murn != []:
-        return murn[-1]
+        return [murn[-1]]
     if mura != []:
         if mura[-1] == murn[-1]:
             return False
-        return murn[-1]
+        else:
+            a = []
+            for x in murn:
+                if not (x in mura):
+                    a.append(x)
+            return a
