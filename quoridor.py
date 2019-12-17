@@ -155,16 +155,18 @@ class Quoridor:
 
         if a != False:
             raise QuoridorError
-
         coup = ()
-        """position = self.avancer_joueur(index1)
-        coup = (position,type_coup[1])
+        position = self.avancer_joueur(index1)
+        coup = (position, type_coup[0])
 
-        if mur_horizontal_valide(état, position):
-            return coup """
-
+        if état["joueurs"][index2-1]['murs'] > 0:
+            if mur_horizontal_valide(état, position) and position != self.last_coup:
+                if état["joueurs"][index2-1]['murs'] > 0:
+                    self.last_coup = coup
+                    return coup
         position = self.avancer_joueur(index2)
         coup = (position, type_coup[2])
+        self.last_coup = coup
         return coup
        
         
@@ -430,21 +432,25 @@ def erreur_initialisation3(joueurs, murs):
 
 
 def mur_horizontal_valide(état, position):
-    print(position)
     joueurs = état["joueurs"]
-    """[x, y] = position
-    
+    [x, y] = position
     p1 = [x-1, y]
     p2 = [x+1, y]
-    if position in état["murs"]["horizontaux"]:
-        return False
-    if p1 in état["murs"]["horizontaux"] or p2 in état["murs"]["horizontaux"]:
-        return False
+    p3 = [x-2, y]
+    for item in état["murs"]["horizontaux"]:
+        if item == [x, y]: 
+            return False
+    for item in état["murs"]["horizontaux"]:
+        if item == p1 or item == p2: 
+            return False
+    for item in état["murs"]["horizontaux"]:
+        if item == p3 and item == p2: 
+            return False
     if (x+1, y) in état["murs"]["verticaux"]:
         return False
-    if x not in range(1, 9) or y not in range(2, 10):
+    if x not in range(1, 9) or y not in range(1, 10):
         return False
-    return True"""
+    return True
 
 
 def mur_vertical_valide(état, position):
