@@ -111,8 +111,12 @@ def mode_automatique_graphique(idul):
         except StopIteration as err:
             print(f"le gagnant est: {err} ")
             start = False
-        except RuntimeError as err:
-            print(err)
+        except RuntimeError:
+            Q1.partie['état'] = api.jouer_coup(
+                identifiant, "D", Q1.avancer_joueur(1))
+            fen.afficher(Q1.partie['état'])
+            fen.partie['état'] = Q1.partie["état"]
+            
 
 
 def jeu():

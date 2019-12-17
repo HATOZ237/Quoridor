@@ -95,7 +95,7 @@ def placer_murh(pos):
     t = turtle.Turtle()
     t.hideturtle()
     x, y = pos
-    t.speed(10)
+    t.speed(1)
     t.penup()
     t.pensize(5)
     t.pencolor('blue')
@@ -109,7 +109,7 @@ def placer_murv(pos):
     t = turtle.Turtle()
     t.hideturtle()
     x, y = pos
-    t.speed(10)
+    t.speed(1)
     t.penup()
     t.pensize(5)
     t.pencolor('red')
@@ -121,6 +121,7 @@ def placer_murv(pos):
 def deplacer(tortle, pos):
     """deplacer les tortues"""
     x, y = pos
+    tortle.speed(1)
     tortle.penup()
     tortle.goto(-250 + 50*x, -250 + 50*y)
 

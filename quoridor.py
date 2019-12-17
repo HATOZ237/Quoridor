@@ -176,7 +176,7 @@ class Quoridor:
                 if coup != self.last_coup:
                     self.last_coup = coup
                     return coup"""
-        position = nx.shortest_path(graphe, état['joueurs'][index2], 'B1')
+        position = nx.shortest_path(graphe, tuple(état['joueurs'][index2]["pos"]), 'B1')
         coup = (position, type_coup[2])
         if coup != self.last_coup:
             self.last_coup = coup
@@ -195,14 +195,15 @@ class Quoridor:
         b = False
         if a != b:
             raise QuoridorError
-        état = self.état_partie()
+        état = self.partie["état"]
         graphe = construire_graphe(
             [joueur['pos'] for joueur in état['joueurs']],
             état['murs']['horizontaux'],
             état['murs']['verticaux'])
-        positions = {'B1': (5, 10), 'B2': (5, 0)}
-        path = [nx.shortest_path(graphe, état['joueurs'][0]['pos'], 'B1'),
-                nx.shortest_path(graphe, état['joueurs'][1]['pos'], 'B2')]
+        x = tuple(état['joueurs'][0]['pos'])
+        y = tuple(état['joueurs'][1]['pos'])
+        path = [nx.shortest_path(graphe, x, 'B1'),
+                nx.shortest_path(graphe, y, 'B2')]
         return path[joueur-1][1]
 
     def partie_terminée(self):
