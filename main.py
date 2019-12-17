@@ -121,7 +121,6 @@ def mode_automatique_graphique(idul):
             fen.partie['état'] = Q1.partie["état"]
             
 
-
 def jeu():
     """on met aussi pour mettre"""
     args = analyser_commande()
