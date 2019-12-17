@@ -168,10 +168,10 @@ class Quoridor:
             tuple(self.partie['état']["joueurs"][index1]["pos"])))
 
         coup = ()
-        position = nx.shortest_path(graphe, tuple(état['joueurs'][index1]["pos"]), 'B2')
-        coup = (position, type_coup[2])
-        if(mur_horizontal_valide(état, coup)):
-            return coup 
+       # position = nx.shortest_path(graphe, tuple(état['joueurs'][index1]["pos"]), 'B2')
+       # coup = (position, type_coup[2])
+       # if(mur_horizontal_valide(état, coup)):
+       #     return coup 
         position = nx.shortest_path(graphe, tuple(état['joueurs'][index2]["pos"]), 'B1')
         coup = (position, type_coup[2])
         if coup != self.last_coup:

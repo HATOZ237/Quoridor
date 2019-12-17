@@ -46,6 +46,7 @@ def mode_manuel_simple(idul):
 
 
 def mode_manuel_graphique(idul):
+    """Jouer en mode manuel contre le serveur avec affichage graphique."""
     (identifiant, état) = api.débuter_partie(idul)
     Q1 = quoridor.Quoridor(état["joueurs"], état["murs"])
     start = True
@@ -76,6 +77,7 @@ def mode_manuel_graphique(idul):
 
 
 def mode_automatique_simple(idul):
+    """Jouer en mode automatique contre le serveur."""
     (identifiant, état) = api.débuter_partie(idul)
     Q1 = quoridor.Quoridor(état["joueurs"], état["murs"])
     start = True
@@ -95,6 +97,7 @@ def mode_automatique_simple(idul):
 
 
 def mode_automatique_graphique(idul):
+    """lance automatiquement le jeu graphiquement"""
     (identifiant, état) = api.débuter_partie(idul)
     Q1 = quoridor.Quoridor(état["joueurs"], état["murs"])
     start = True
@@ -120,6 +123,7 @@ def mode_automatique_graphique(idul):
 
 
 def jeu():
+    """on met aussi pour mettre"""
     args = analyser_commande()
     if args.automatique:
         mode_automatique_simple(args.idul)
