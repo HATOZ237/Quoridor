@@ -1,3 +1,4 @@
+""" cette fonction fonctionne """
 import api
 import quoridor
 import quoridorx
