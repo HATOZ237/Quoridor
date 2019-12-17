@@ -126,13 +126,11 @@ def jeu():
         mode_automatique_simple(args.idul)
     elif args.manuel:
         mode_manuel_graphique(args.idul)
-        quoridorx.turtle.mainloop()
     elif args.automatiquex:
         mode_automatique_graphique(args.idul)
-        quoridorx.turtle.mainloop()
     else:
         mode_manuel_simple(args.idul)
 
 
 jeu()
-
+quoridorx.turtle.mainloop()
