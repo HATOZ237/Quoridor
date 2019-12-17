@@ -121,7 +121,7 @@ def placer_murv(pos):
 def deplacer(tortle, pos):
     """deplacer les tortues"""
     x, y = pos
-    tortle.speed(1)
+    tortle.speed(2)
     tortle.penup()
     tortle.goto(-250 + 50*x, -250 + 50*y)
 

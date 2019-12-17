@@ -4,6 +4,7 @@ Ce module est la deuxième partie du projet,
 """
 from copy import deepcopy
 import networkx as nx
+from random import choice
 
 
 class QuoridorError(Exception):
@@ -155,18 +156,29 @@ class Quoridor:
 
         if a != False:
             raise QuoridorError
+        graphe = construire_graphe(
+            [joueur['pos'] for joueur in état['joueurs']],
+            état['murs']['horizontaux'],
+            état['murs']['verticaux'])
+        x = tuple(état['joueurs'][1]['pos'])
+        v = 0
         coup = ()
+        choix = [1, 2]
         position = self.avancer_joueur(index1)
         coup = (position, type_coup[0])
-
         if état["joueurs"][index2-1]['murs'] > 0:
-            if mur_horizontal_valide(état, position) and position != self.last_coup:
-                if état["joueurs"][index2-1]['murs'] > 0:
-                    self.last_coup = coup
+            decision = choice(choix)
+            if decision == 1:
+                if mur_horizontal_valide(état, position) and position != self.last_coup and nx.has_path(graphe, x, 'B2'):
+                    v += 1
                     return coup
-        position = self.avancer_joueur(index2)
-        coup = (position, type_coup[2])
-        self.last_coup = coup
+            position = self.avancer_joueur(index2)
+            coup = (position, type_coup[2])
+            v += 1
+            return coup
+        if v == 0 : 
+            position = self.avancer_joueur(index2)
+            coup = (position, type_coup[2])
         return coup
        
         
