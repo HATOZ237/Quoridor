@@ -61,7 +61,6 @@ class Quoridor:
                           'murs': {'horizontaux': mur_horizontaux, 'verticaux': mur_verticaux}}
 
         self.partie = partie
-        self.last_coup = 0
 
     def __str__(self):
         """
@@ -458,7 +457,7 @@ def mur_horizontal_valide(état, position):
     for item in état["murs"]["horizontaux"]:
         if item == p3 and item == p2: 
             return False
-    if (x+1, y) in état["murs"]["verticaux"]:
+    if [x+1, y] in état["murs"]["verticaux"]:
         return False
     if x not in range(1, 9) or y not in range(1, 10):
         return False
@@ -468,9 +467,19 @@ def mur_horizontal_valide(état, position):
 def mur_vertical_valide(état, position):
     joueurs = état["joueurs"]
     [x, y] = position
-    if position in état["murs"]["verticaux"]:
-        return False
-    if [x-1, y] in état["murs"]["horizontaux"]:
+    p1 = [x-1, y]
+    p2 = [x+1, y]
+    p3 = [x-2, y]
+    for item in état["murs"]["verticaux"]:
+        if item == [x, y]: 
+            return False
+    for item in état["murs"]["verticaux"]:
+        if item == p1 or item == p2: 
+            return False
+    for item in état["murs"]["verticaux"]:
+        if item == p3 and item == p2: 
+            return False
+    if [x+1, y] in état["murs"]["horizontaux"]:
         return False
     if not x in range(2, 10) and not y in range(1, 9):
         return False
