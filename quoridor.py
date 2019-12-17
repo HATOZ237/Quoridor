@@ -159,7 +159,7 @@ class Quoridor:
     
         # determiner la position optimale pour le joueur 2
         [pos_x, pos_y] = self.partie['état']["joueurs"][index1]["pos"]
-        [po_x, po_y] = self.partie['état']["joueurs"][index1]["pos"]
+        [po_x, po_y] = self.partie['état']["joueurs"][index2]["pos"]
         état = self.état_partie()
         graphe = construire_graphe(
             [player['pos'] for player in état['joueurs']],
@@ -169,27 +169,20 @@ class Quoridor:
             tuple(self.partie['état']["joueurs"][index1]["pos"])))
         
         coup = ()
-        for poss in possibilité:
-            if poss[1] <= pos_y and not poss in self.partie['état']["murs"]:
+        """for poss in possibilité:
+            if poss[1] <= pos_y and not poss in self.partie['état']["murs"]['horizontaux']:
                 if poss[0] == 1 or poss[0] == 2:
                     break
                 coup = (poss , type_coup[0])
                 if coup != self.last_coup:
                     self.last_coup = coup
-                    return coup
-        position = self.avancer_joueur(index2)
+                    return coup"""
+        position = nx.shortest_path(graphe, état['joueurs'][index2], 'B1')
         coup = (position, type_coup[2])
         if coup != self.last_coup:
             self.last_coup = coup
             return coup
-        """possibilité = list(graphe.successors(
-            tuple(self.partie['état']["joueurs"][index2]["pos"])))
-        for poss in possibilité:
-            if poss[1] >= po_y and not poss in self.partie['état']["murs"]:
-                coup = (poss , type_coup[2])
-                if coup != self.last_coup:
-                    self.last_coup = coup
-                    return coup"""
+       
         
     
     def avancer_joueur(self, joueur):
