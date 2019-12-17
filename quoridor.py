@@ -139,7 +139,7 @@ class Quoridor:
     def jouer_coup(self, joueur):
         """ à un niveau je ne comprends plus ce que je fais donc
         laisse seulement"""
-        print(self.partie['état'])
+        état = self.état_partie()
         # si le numéro du joueur est autre que 1 ou 2
         if not(joueur in [1, 2]):
             raise QuoridorError
@@ -149,34 +149,23 @@ class Quoridor:
         a = self.partie_terminée()
 
         if self.partie['état']["joueurs"][0]["nom"] == 'robot':
-            index1, index2 = 0, 1
+            index1, index2 = 1, 2
         else:
-            index1, index2 = 1, 0
+            index1, index2 = 2, 1
 
         if a != False:
             raise QuoridorError
 
-        # determiner la position optimale pour le joueur 2
-        [pos_x, pos_y] = self.partie['état']["joueurs"][index1]["pos"]
-        [po_x, po_y] = self.partie['état']["joueurs"][index2]["pos"]
-        état = self.état_partie()
-        graphe = construire_graphe(
-            [player['pos'] for player in état['joueurs']],
-            état['murs']['horizontaux'],
-            état['murs']['verticaux'])
-        possibilité = list(graphe.successors(
-            tuple(self.partie['état']["joueurs"][index1]["pos"])))
-
         coup = ()
-        position = nx.shortest_path(graphe, tuple(état['joueurs'][index1]["pos"]), 'B2')
+        """position = self.avancer_joueur(index1)
+        coup = (position,type_coup[1])
+
+        if mur_horizontal_valide(état, position):
+            return coup """
+
+        position = self.avancer_joueur(index2)
         coup = (position, type_coup[2])
-        if(mur_horizontal_valide(état, coup)):
-            return coup 
-        position = nx.shortest_path(graphe, tuple(état['joueurs'][index2]["pos"]), 'B1')
-        coup = (position, type_coup[2])
-        if coup != self.last_coup:
-            self.last_coup = coup
-            return coup
+        return coup
        
         
     
@@ -441,9 +430,10 @@ def erreur_initialisation3(joueurs, murs):
 
 
 def mur_horizontal_valide(état, position):
+    print(position)
     joueurs = état["joueurs"]
-    [x, y] = position
-    print(x, y)
+    """[x, y] = position
+    
     p1 = [x-1, y]
     p2 = [x+1, y]
     if position in état["murs"]["horizontaux"]:
@@ -454,7 +444,7 @@ def mur_horizontal_valide(état, position):
         return False
     if x not in range(1, 9) or y not in range(2, 10):
         return False
-    return True
+    return True"""
 
 
 def mur_vertical_valide(état, position):
